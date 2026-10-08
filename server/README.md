@@ -1,13 +1,34 @@
-# Optional WhatsApp Cloud API relay
+# GROZ server integrations
 
-The storefront uses the official WhatsApp click-to-chat URL by default:
-`https://wa.me/8801604985164`
+The static storefront now requires server verification before an online payment order can be sent to WhatsApp.
 
-For automated WhatsApp Cloud API sending, deploy the optional server and keep credentials on the server only. Never put a Meta access token in browser JavaScript.
-
-Required environment variables:
+## WhatsApp Cloud API
+Set:
 - `WHATSAPP_TOKEN`
 - `WHATSAPP_PHONE_NUMBER_ID`
-- `WHATSAPP_API_VERSION` (example: `v23.0`)
+- optional `WHATSAPP_API_VERSION` (defaults to `v23.0`)
 
-You must obtain these from Meta WhatsApp Business Platform and configure the phone number in your own WABA. This template intentionally does not contain credentials.
+The browser calls `/api/whatsapp/order`; the token never appears in frontend files.
+
+## Payment verification
+A transaction ID by itself cannot prove that money was actually received or that a transaction has not expired. The `/api/payment/verify` endpoint therefore **rejects online orders unless an official payment-provider verifier is configured and returns a successful normalized result**.
+
+Configure either a common endpoint:
+- `PAYMENT_VERIFY_URL`
+- optional `PAYMENT_VERIFY_TOKEN`
+
+or provider-specific endpoints/tokens:
+- `PAYMENT_VERIFY_URL_BKASH` / `PAYMENT_VERIFY_TOKEN_BKASH`
+- `PAYMENT_VERIFY_URL_NAGAD` / `PAYMENT_VERIFY_TOKEN_NAGAD`
+- `PAYMENT_VERIFY_URL_UPAY` / `PAYMENT_VERIFY_TOKEN_UPAY`
+- `PAYMENT_VERIFY_URL_ROCKET` / `PAYMENT_VERIFY_TOKEN_ROCKET`
+
+The configured verifier should return JSON in this normalized shape:
+```json
+{"valid":true,"status":"COMPLETED","amount":1490,"receiver":"01604985164"}
+```
+Accepted success statuses are `COMPLETED`, `SUCCESS`, `PAID`, and `SETTLED`.
+
+The server also rejects a transaction ID that has already been accepted, which helps prevent replaying the same payment against multiple orders.
+
+**Important:** Do not put provider API keys or WhatsApp tokens in `js/app.js` or any HTML file. You need the official merchant/payment-provider API credentials for real-time expiry/status checking. Without those credentials the site intentionally blocks online-payment orders instead of falsely treating any transaction ID as valid.

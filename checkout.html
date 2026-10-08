@@ -34,12 +34,12 @@
 <div id="onlinePaymentFields"><label>Transaction ID<input name="transaction_id" id="transactionId" placeholder="Enter transaction ID after payment"></label><div class="notice" style="margin-top:14px" data-i18n="Send the exact order amount. Wrong amount or transaction ID will not be confirmed.">Send the <b>exact order amount</b>. Wrong amount or transaction ID will not be confirmed.</div></div>
 </section>
 <section class="card"><div class="kicker" data-i18n="Your order">Your order</div><h3 data-i18n="Order details">Order details</h3>
-<div class="form-row"><label>Product<input name="product" id="product" placeholder="Product name" required></label><label>Quantity<input name="quantity" id="quantity" type="number" min="1" value="1" required></label></div>
+<div id="checkoutItems" class="checkout-items-wrap"></div><div class="form-row"><label>Product<input name="product" id="product" placeholder="Product name" required readonly></label><label>Quantity<input name="quantity" id="quantity" type="number" min="1" max="99" value="1" required></label></div>
 <div class="form-row"><label>Full name<input name="name" required placeholder="Your name"></label><label>Phone<input name="phone" required placeholder="01XXXXXXXXX"></label></div>
 <div class="form-row"><label>Email<input name="email" type="email" required placeholder="you@example.com"></label><label>Unit price (৳)<input id="unitPrice" type="number" min="0" readonly placeholder="0"></label></div>
 <label>Delivery address<textarea name="address" required placeholder="House / Road / Area / District"></textarea></label>
 <label>Order amount (৳)<input name="amount" id="amount" type="number" min="0" readonly required placeholder="0"></label>
-<div class="notice" data-i18n="Order amount = unit price × quantity. The total updates automatically when you change quantity.">Order amount = unit price × quantity. The total updates automatically when you change quantity.</div>
+<div class="notice" data-i18n="Order amount is calculated automatically from all selected items and quantities.">Order amount is calculated automatically from all selected items and quantities.</div>
 <label class="checkline"><input type="checkbox" id="confirmDetails" required> <span data-i18n="I confirm that my order and payment details are correct.">I confirm that my order and payment details are correct.</span></label>
 <div class="checkout-actions"><button class="btn" type="submit" data-i18n="Place Order on WhatsApp →">Place Order on WhatsApp →</button><a class="btn ghost" href="cart.html" data-i18n="View Cart 🛒">View Cart 🛒</a></div>
 </section></form></div></section></main>

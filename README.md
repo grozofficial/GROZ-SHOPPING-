@@ -1,55 +1,38 @@
-# GROZ E-commerce Website — v2
+# GROZ E-commerce Website — v7 cart & payment verification update
 
-Updated according to the latest GROZ requirements.
+This update keeps the existing GROZ design/features and adds only the requested cart/order/payment improvements.
 
-### New changes
-- Homepage big logo artwork removed from the hero.
-- Two supplied photos are used in a full-frame homepage slideshow.
-- Slides automatically change every 5 seconds with a fade transition.
-- Hero images fill the frame with dark cinematic overlays.
-- Small unique GROZ copy sits at the bottom of each frame.
-- Red blended glow/accent runs along the bottom of the hero.
-- Payment confirmation moved out of Buy Now/Checkout.
-- Buy Now now collects product + customer + delivery details only.
-- Continue to Payment stores those details and opens the Payment page.
-- Payment page has bKash, Nagad, Upay, Rocket and COD selection.
-- Selecting an online payment app immediately shows its GROZ number underneath the payment method.
-- Copy Number button copies the currently selected number.
-- COD hides/disables the transaction ID requirement.
-- Online payments require transaction ID + confirmation checkbox.
-- Final order details are sent to GROZ WhatsApp.
+## Cart & quantity
+- Multiple products can be selected together from the Cart.
+- **Order Selected** sends only checked items to Pay & Buy.
+- **Order All** sends the entire cart together.
+- Each product quantity uses buttons instead of requiring typing.
+- Quantity supports **−10, −1, +1, +10**, capped from 1 to 99.
+- Cart totals update automatically.
+- Pay & Buy receives every selected item name, unit price, quantity and line total, plus the grand total.
+- The order information sent to WhatsApp contains the complete multi-item list.
 
-### Supplied homepage images
-- assets/hero-01.jpg
-- assets/hero-02.jpg
+## Online payment verification
+A transaction ID typed by itself cannot prove that a payment is real, completed, received by GROZ, or not expired. The browser therefore no longer treats any transaction ID as automatically valid.
 
-Replace these two files with your actual product/brand photos later and keep the same filenames for the slideshow to work automatically.
+For online payment methods, Pay & Buy calls:
 
-### Payment verification
-This is a front-end/manual confirmation workflow. It does not automatically verify bKash/Nagad/Upay/Rocket transactions. The submitted transaction ID is sent to WhatsApp for manual confirmation.
+`POST /api/payment/verify`
 
+The server rejects the order unless the configured official payment-provider verifier confirms:
+- transaction is valid and successful/completed
+- transaction amount exactly matches the cart total
+- receiver matches the selected GROZ payment number
+- transaction ID has not already been accepted
 
-### Homepage slideshow v3
-The homepage uses the eight latest supplied GROZ images in `assets/hero/`. Each image fills the hero frame and fades to the next image every 5 seconds. The slideshow has a dark cinematic overlay, red bottom blend and small editorial copy.
+If the provider reports an expired/failed/wrong/incomplete transaction, the order is blocked and is **not sent to WhatsApp**.
 
-## GROZ Settings Upgrade
+### Important API requirement
+Real-time expiry/status checking requires the official merchant/payment API credentials for bKash, Nagad, Upay and/or Rocket. Those credentials were not supplied, so this package intentionally does **not** pretend that a transaction ID is valid.
 
-The header now includes a red-outlined gear **Settings** icon on every page. It provides:
-- **Dark** theme (original GROZ look)
-- **White** theme
-- **Bright** high-contrast light theme with the GROZ red accent preserved
-- **English** and **বাংলা** language options
+Configure the server using the instructions in `server/README.md`. Until an official verifier is configured, online orders are blocked safely; Cash on Delivery continues to work.
 
-Theme and language choices are saved in the browser with `localStorage` and persist while moving between pages.
+## WhatsApp
+The website uses the server endpoint `/api/whatsapp/order` when WhatsApp Cloud API credentials are configured. Otherwise it falls back to opening the GROZ WhatsApp chat link.
 
-## v5 checkout update
-- The Buy Now page is now a combined **Pay & Buy Now** flow.
-- Payment method is shown at the top; product/order details are below it.
-- bKash/Nagad/Upay/Rocket number appears under the selected method with a copy button.
-- Cash on Delivery disables the transaction-ID field.
-- Unit price × quantity automatically calculates the order amount.
-- Orders are sent directly to the GROZ WhatsApp number after required details are completed.
-
-
-## v6 Cart
-Shop cards now include quantity controls and Add to Cart. The cart is stored in localStorage and available from the header cart icon. The standalone Payment page has been removed; payment and order details are completed together on Pay & Buy.
+Never put WhatsApp tokens or payment API credentials in frontend HTML/JS.
