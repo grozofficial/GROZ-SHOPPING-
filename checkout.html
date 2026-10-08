@@ -1,0 +1,48 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#050505"><title>Pay & Buy — GROZ</title><link rel="stylesheet" href="css/style.css"><meta name="description" content="Complete your GROZ order with payment choice, customer details and WhatsApp ordering."><meta name="keywords" content="GROZ Pay Buy, online shopping Bangladesh"><meta name="robots" content="index,follow,max-image-preview:large"><link rel="canonical" href="https://YOUR-DOMAIN.example/checkout.html"></head><body>
+<header class="header"><div class="container nav"><a class="brand" href="index.html"><img src="assets/groz-logo.jpg" alt="GROZ logo"><span>GROZ</span></a><button class="menu">☰</button><nav class="navlinks"><a href="index.html">Home</a><a href="shop.html">Shop</a><a href="about.html">About</a><a href="contact.html">Contact</a><a class="btn" href="checkout.html" data-i18n="Pay & Buy">Pay & Buy</a></nav>
+<a class="cart-link" href="cart.html" aria-label="Cart" title="Cart"><span class="cart-icon">🛒</span><span class="cart-count" id="cartCount">0</span></a>
+<div class="settings-wrap">
+  <button class="settings-btn" id="settingsBtn" type="button" aria-label="Settings" title="Settings">⚙</button>
+  <div class="settings-panel" id="settingsPanel" aria-hidden="true">
+    <div class="settings-title"><span data-i18n="Settings">Settings</span><button class="settings-close" id="settingsClose" type="button" aria-label="Close">×</button></div>
+    <div class="settings-section">
+      <div class="settings-label" data-i18n="Theme">Theme</div>
+      <div class="theme-options">
+        <button type="button" class="theme-choice" data-theme-choice="dark"><span class="theme-swatch swatch-dark"></span><span data-i18n="Dark">Dark</span></button>
+        <button type="button" class="theme-choice" data-theme-choice="white"><span class="theme-swatch swatch-white"></span><span data-i18n="White">White</span></button>
+        
+      </div>
+    </div>
+    <div class="settings-section">
+      <div class="settings-label" data-i18n="Language">Language</div>
+      <div class="language-options">
+        <button type="button" class="language-choice" data-lang-choice="en">English</button>
+        <button type="button" class="language-choice" data-lang-choice="bn">বাংলা</button>
+      </div>
+    </div>
+    <div class="settings-hint" data-i18n="Your choices are saved automatically.">Your choices are saved automatically.</div>
+  </div>
+</div>
+</div></header>
+<main><section class="section"><div class="container">
+<div class="section-head reveal"><div><div class="kicker" data-i18n="Pay & Buy / Step 1">Pay & Buy / Step 1</div><h2><span data-i18n="Pay & Buy">Pay & Buy</span><br><span class="red" data-i18n="Complete your order.">Complete your order.</span></h2></div><p data-i18n="Choose your payment method first, then enter your product and delivery details below. The order amount is calculated automatically from unit price × quantity.">Choose your payment method first, then enter your product and delivery details below. The order amount is calculated automatically from unit price × quantity.</p></div>
+<form id="checkoutForm" class="form reveal">
+<section class="card pay-buy-payment"><div class="kicker" data-i18n="Payment">Payment</div><h3 data-i18n="Choose payment method">Choose payment method</h3>
+<div class="payment-selector payment-options"><label class="payment-option"><input type="radio" name="payment" value="bKash" checked> <span>bKash</span></label><label class="payment-option"><input type="radio" name="payment" value="Nagad"> <span>Nagad</span></label><label class="payment-option"><input type="radio" name="payment" value="Upay"> <span>Upay</span></label><label class="payment-option"><input type="radio" name="payment" value="Rocket"> <span>Rocket</span></label><label class="payment-option"><input type="radio" name="payment" value="cod"> <span data-i18n="Cash on Delivery">Cash on Delivery</span></label></div>
+<div id="paymentNumberBox" class="selected-payment"><span class="muted" id="paymentNumberLabel">bKash payment number</span><div class="number-line"><strong id="paymentNumber">01604985164</strong><button type="button" class="copy" id="copyPaymentNumber" data-i18n="Copy number">Copy number</button></div></div>
+<div id="codNote" class="notice hidden" data-i18n="Cash on Delivery selected. No transaction ID is required.">Cash on Delivery selected. No transaction ID is required.</div>
+<div id="onlinePaymentFields"><label>Transaction ID<input name="transaction_id" id="transactionId" placeholder="Enter transaction ID after payment"></label><div class="notice" style="margin-top:14px" data-i18n="Send the exact order amount. Wrong amount or transaction ID will not be confirmed.">Send the <b>exact order amount</b>. Wrong amount or transaction ID will not be confirmed.</div></div>
+</section>
+<section class="card"><div class="kicker" data-i18n="Your order">Your order</div><h3 data-i18n="Order details">Order details</h3>
+<div class="form-row"><label>Product<input name="product" id="product" placeholder="Product name" required></label><label>Quantity<input name="quantity" id="quantity" type="number" min="1" value="1" required></label></div>
+<div class="form-row"><label>Full name<input name="name" required placeholder="Your name"></label><label>Phone<input name="phone" required placeholder="01XXXXXXXXX"></label></div>
+<div class="form-row"><label>Email<input name="email" type="email" required placeholder="you@example.com"></label><label>Unit price (৳)<input id="unitPrice" type="number" min="0" readonly placeholder="0"></label></div>
+<label>Delivery address<textarea name="address" required placeholder="House / Road / Area / District"></textarea></label>
+<label>Order amount (৳)<input name="amount" id="amount" type="number" min="0" readonly required placeholder="0"></label>
+<div class="notice" data-i18n="Order amount = unit price × quantity. The total updates automatically when you change quantity.">Order amount = unit price × quantity. The total updates automatically when you change quantity.</div>
+<label class="checkline"><input type="checkbox" id="confirmDetails" required> <span data-i18n="I confirm that my order and payment details are correct.">I confirm that my order and payment details are correct.</span></label>
+<div class="checkout-actions"><button class="btn" type="submit" data-i18n="Place Order on WhatsApp →">Place Order on WhatsApp →</button><a class="btn ghost" href="cart.html" data-i18n="View Cart 🛒">View Cart 🛒</a></div>
+</section></form></div></section></main>
+<section class="social-outro reveal"><div class="social-content"><div class="kicker">Stay connected with GROZ</div><h2>See what's <span class="red">next.</span></h2><p>Follow GROZ for new arrivals, product drops, offers and behind-the-scenes updates.</p><div class="socials"><a class="social-btn" data-social="facebook" href="#" target="_blank" rel="noopener">f</a><a class="social-btn" data-social="instagram" href="#" target="_blank" rel="noopener">◎</a></div></div></section>
+<footer class="footer"><div class="container footer-grid"><div><div class="brand"><img src="assets/groz-logo.jpg" alt="GROZ"><span>GROZ</span></div><p class="muted" style="margin-top:14px">Every kind of product, selected for modern life.</p></div><div><b>Explore</b><p><a href="shop.html">Shop</a></p><p><a href="about.html">About</a></p><p></p></div><div><b>Contact</b><p>grozofficial7@gmail.com</p><p>Maijdee Court, Noakhali</p><p>WhatsApp: 01604985164</p></div></div></footer>
+<div class="toast"></div><script src="js/app.js"></script></body></html>
